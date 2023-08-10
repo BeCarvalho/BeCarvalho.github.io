@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Renda mensal</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #20B2AA;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 15cm;
+  }
+  .container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    width: 10cm;
+  }
+  label {
+    font-weight: bold;
+    text-align: left;
+    display: inline-block;
+    width: 100px;
+  }
+  input {
+    width: 60px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  button {
+    background-color: #00CED1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  button:hover {
+    background-color: #008b8b;
+  }
+  #result {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2>Renda mensal</h2>
+    <form id="calculation-form">
+      <label for="input-1">1 minute:</label>
+      <input type="number" id="input-1" step="any" required><br>
+      <label for="input-2">2 minutes:</label>
+      <input type="number" id="input-2" step="any" required><br>
+      <label for="input-3">3 minutes:</label>
+      <input type="number" id="input-3" step="any" required><br>
+      <label for="input-5">5 minutes:</label>
+      <input type="number" id="input-5" step="any" required><br>
+      <label for="input-8">8 minutes:</label>
+      <input type="number" id="input-8" step="any" required><br>
+      <button type="button" id="calculate-button">Calcular</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const calculateButton = document.getElementById('calculate-button');
+    calculateButton.addEventListener('click', () => {
+      const vu1 = parseFloat(document.getElementById('input-1').value);
+      const vu2 = parseFloat(document.getElementById('input-2').value);
+      const vu3 = parseFloat(document.getElementById('input-3').value);
+      const vu5 = parseFloat(document.getElementById('input-5').value);
+      const vu8 = parseFloat(document.getElementById('input-8').value);
+
+      const rf = (1 * vu1) + (2 * vu2) + (3 * vu3) + (5 * vu5) + (8 * vu8);
+      const finalResult = rf * 0.1;
+
+      const resultElement = document.getElementById('result');
+      resultElement.textContent = `Resultado: ${finalResult.toFixed(2)}`;
+    });
+  </script>
+</body>
+</html>
