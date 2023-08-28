@@ -1,92 +1,179 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Renda mensal</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #20B2AA;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 15cm;
-  }
-  .container {
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-    text-align: left;
-    width: 10cm;
-  }
-  label {
-    font-weight: bold;
-    text-align: left;
-    display: inline-block;
-    width: 100px;
-  }
-  input {
-    width: 60px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  button {
-    background-color: #00CED1;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    margin-top: 20px;
-  }
-  button:hover {
-    background-color: #008b8b;
-  }
-  #result {
-    margin-top: 10px;
-    font-weight: bold;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remoção de EBA</title>
+    <style>
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: url('https://image8.cdn.seaart.ai/2023-08-07/53665720201285/6d0b3b1725a9943e86b0b4799fa8909dbfcbfcb4.png');
+            background-size: cover;
+            filter: blur(20px); /* Efeito de desfoque ajustado para 20% */
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5); /* Camada de filtro preto transparente */
+            margin: 0;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Fundo do container completo, incluindo o título da página */
+        .calculator {
+            background-color: rgba(255, 25, 25, 0.3); /* Nova cor de fundo com transparência */
+            max-width: 400px;
+            padding: 20px;
+            border-radius: 10px; /* Cantos arredondados */
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3); /* Sombra suave */
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9); /* Texto mais visível */
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards;
+            margin: 10px; /* Espaçamento entre os containers */
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-family: 'Space Mono', monospace;
+            font-size: 36px; /* Tamanho do título reduzido */
+            font-weight: 700;
+            color: #fff;
+            margin: 0;
+        }
+
+        /* Alinhamento à esquerda para rótulos e campos de entrada */
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        input[type="number"] {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Cor do botão alterada ao passar o mouse */
+        }
+
+        p.result {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            font-size: 24px; /* Tamanho da fonte aumentado */
+            margin-top: 20px; /* Espaçamento superior aumentado */
+        }
+
+        p.percentage {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            font-size: 18px; /* Tamanho da fonte para a porcentagem */
+            margin-top: 10px; /* Espaçamento superior para a porcentagem */
+        }
+
+        /* Estilo em negrito para os valores */
+        .bold {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Renda mensal</h2>
-    <form id="calculation-form">
-      <label for="input-1">1 minute:</label>
-      <input type="number" id="input-1" step="any" required><br>
-      <label for="input-2">2 minutes:</label>
-      <input type="number" id="input-2" step="any" required><br>
-      <label for="input-3">3 minutes:</label>
-      <input type="number" id="input-3" step="any" required><br>
-      <label for="input-5">5 minutes:</label>
-      <input type="number" id="input-5" step="any" required><br>
-      <label for="input-8">8 minutes:</label>
-      <input type="number" id="input-8" step="any" required><br>
-      <button type="button" id="calculate-button">Calcular</button>
-    </form>
-    <div id="result"></div>
-  </div>
+    <div class="calculator">
+        <h1>Remoção de EBA</h1>
+        &nbsp;
+        <form onsubmit="event.preventDefault(); calcularEficienciaRemocao();">
+            <label for="ab">Contagem em Água Bruta (AB):</label>
+            <input type="number" id="ab" required>
 
-  <script>
-    const calculateButton = document.getElementById('calculate-button');
-    calculateButton.addEventListener('click', () => {
-      const vu1 = parseFloat(document.getElementById('input-1').value);
-      const vu2 = parseFloat(document.getElementById('input-2').value);
-      const vu3 = parseFloat(document.getElementById('input-3').value);
-      const vu5 = parseFloat(document.getElementById('input-5').value);
-      const vu8 = parseFloat(document.getElementById('input-8').value);
+            <label for="af">Contagem após o Filtro (AF):</label>
+            <input type="number" id="af" required>
 
-      const rf = (1 * vu1) + (2 * vu2) + (3 * vu3) + (5 * vu5) + (8 * vu8);
-      const finalResult = rf * 0.1;
+            <button type="submit">Calcular</button>
+        </form>
+        <p class="result" id="result"></p>
+        <p class="percentage" id="percentage"></p>
+    </div>
 
-      const resultElement = document.getElementById('result');
-      resultElement.textContent = `Resultado: ${finalResult.toFixed(2)}`;
-    });
-  </script>
+    <!-- Segundo Container para o Novo Cálculo -->
+    <div class="calculator">
+        <h1>Número de Colônias</h1>
+        &nbsp;
+        <form onsubmit="event.preventDefault(); calcularNumeroColonias();">
+            <label for="nc">Número de Colônias (NC):</label>
+            <input type="number" id="nc" required>
+
+            <label for="va">Volume da Amostra (VA):</label>
+            <input type="number" id="va" step="any" required>
+
+            <button type="submit">Calcular</button>
+        </form>
+        <p class="result" id="result_nc"></p>
+    </div>
+
+    <script>
+        function calcularEficienciaRemocao() {
+            const ab = parseFloat(document.getElementById('ab').value);
+            const af = parseFloat(document.getElementById('af').value);
+
+            if (!isNaN(ab) && !isNaN(af) && af !== 0) {
+                const eficienciaRemocao = Math.log10(ab / af).toFixed(3);
+                document.getElementById('result').innerHTML = `Eficiência de remoção: <span class="bold">${eficienciaRemocao} Log</span>`;
+
+                if (eficienciaRemocao < 2.5) {
+                    document.getElementById('result').innerHTML += ' (Remoção insuficiente)';
+                }
+
+                const porcentagemRemocao = ((1 - 1 / Math.pow(10, eficienciaRemocao)) * 100).toFixed(2);
+                document.getElementById('percentage').innerHTML = `Porcentagem de remoção: <span class="bold">${porcentagemRemocao}%</span>`;
+            } else {
+                document.getElementById('result').innerText = 'Informe valores válidos para AB e AF (AF não pode ser zero).';
+                document.getElementById('percentage').innerText = '';
+            }
+        }
+
+        function calcularNumeroColonias() {
+            const nc = parseFloat(document.getElementById('nc').value);
+            const va = parseFloat(document.getElementById('va').value);
+
+            if (!isNaN(nc) && !isNaN(va) && va !== 0) {
+                const cf = Math.round((nc * 100) / va); // Arredondar para o número inteiro mais próximo
+                document.getElementById('result_nc').innerHTML = `Contagem final: <span class="bold">${cf} UFC</span>`;
+            } else {
+                document.getElementById('result_nc').innerText = 'Informe valores válidos para NC e VA (VA não pode ser zero).';
+            }
+        }
+    </script>
 </body>
 </html>
