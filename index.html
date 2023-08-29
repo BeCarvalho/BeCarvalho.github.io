@@ -169,7 +169,7 @@
 
             if (!isNaN(nc) && !isNaN(va) && va !== 0) {
                 const cf = Math.round((nc * 100) / va); // Arredondar para o número inteiro mais próximo
-                document.getElementById('result_nc').innerHTML = `Contagem final: <span class="bold">${cf} UFC</span>`;
+                document.getElementById('result_nc').innerHTML = `Contagem final: <span class="bold">${cf} UFC/100ml</span>`;
             } else {
                 document.getElementById('result_nc').innerText = 'Informe valores válidos para NC e VA (VA não pode ser zero).';
             }
