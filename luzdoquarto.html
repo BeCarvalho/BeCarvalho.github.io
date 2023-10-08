@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Lâmpada</title>
+    <style>
+        body {
+            background-color: white;
+            text-align: center;
+        }
+
+        .button-container {
+            margin-top: 50px;
+        }
+
+        .lamp-button {
+            width: 2cm;
+            height: 0.8cm;
+            background-color: #FFE4C4; /* Laranja claro */
+            color: black;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            cursor: pointer;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .lamp-button:hover {
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    
+    
+    <div class="button-container">
+        <button class="lamp-button" id="acender-button">Acender</button>
+        <button class="lamp-button" id="apagar-button">Apagar</button>
+    </div>
+
+    <script>
+        document.getElementById("acender-button").addEventListener("click", function() {
+            // Faça a requisição GET para acender a lâmpada usando a API do Voice Monkey
+            // Substitua a URL abaixo pela sua própria URL de acender
+            fetch("https://api-v2.voicemonkey.io/trigger?token=e9f8b0f3bfa0154ecebc7499a89717c5_f3a10c3901d539f1ea036ec0babc1a1b&device=macaco")
+                .then(response => {
+                    // Lida com a resposta da API (por exemplo, exibe uma mensagem de sucesso)
+                })
+                .catch(error => {
+                    console.error("Erro ao acender a lâmpada:", error);
+                });
+        });
+
+        document.getElementById("apagar-button").addEventListener("click", function() {
+            // Faça a requisição GET para apagar a lâmpada usando a API do Voice Monkey
+            // Substitua a URL abaixo pela sua própria URL de apagar
+            fetch("https://api-v2.voicemonkey.io/trigger?token=e9f8b0f3bfa0154ecebc7499a89717c5_f3a10c3901d539f1ea036ec0babc1a1b&device=tigre")
+                .then(response => {
+                    // Lida com a resposta da API (por exemplo, exibe uma mensagem de sucesso)
+                })
+                .catch(error => {
+                    console.error("Erro ao apagar a lâmpada:", error);
+                });
+        });
+    </script>
+</body>
+</html>
